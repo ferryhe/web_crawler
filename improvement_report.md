@@ -64,11 +64,14 @@ export function createRssSource(config: {
     },
 
     parseEvent(raw: RawEvent) {
+      const parsedDate = raw.date ? new Date(raw.date) : new Date(0);
+      const safeDate = isNaN(parsedDate.getTime()) ? new Date(0) : parsedDate;
+
       return {
         canonicalName: raw.name,
         name: raw.name,
         city: raw.city || '',
-        date: new Date(raw.date),
+        date: safeDate,
         registrationUrl: raw.registrationUrl ?? '',
         registrationStatus: 'unknown' as const,
         metadata: { source: 'rss', rawDescription: raw.rawDescription },
@@ -358,7 +361,7 @@ REGULATORY_EXTRACT_PROMPT = """
 """
 
 
-def collect_regulatory_document(url: str) -> Optional[dict]:
+def collect_regulatory_document(url: str) -> dict:
     """从单个监管文件页面提取结构化信息。"""
     try:
         graph = SmartScraperGraph(
@@ -368,7 +371,7 @@ def collect_regulatory_document(url: str) -> Optional[dict]:
         )
         result = graph.run()
         result["source_url"] = url
-        result["collected_at"] = datetime.utcnow().isoformat()
+        result["collected_at"] = datetime.utcnow().isoformat() + "Z"
         result["content_hash"] = hashlib.sha256(
             json.dumps(result, ensure_ascii=False).encode()
         ).hexdigest()[:12]
@@ -389,7 +392,7 @@ EXAM_INFO_PROMPT = """
 """
 
 
-def collect_exam_info(url: str) -> Optional[dict]:
+def collect_exam_info(url: str) -> dict:
     """从精算师考试网页提取报名和考试信息。"""
     try:
         graph = SmartScraperGraph(
@@ -399,7 +402,7 @@ def collect_exam_info(url: str) -> Optional[dict]:
         )
         result = graph.run()
         result["source_url"] = url
-        result["collected_at"] = datetime.utcnow().isoformat()
+        result["collected_at"] = datetime.utcnow().isoformat() + "Z"
         return result
     except Exception as e:
         return {"error": str(e), "source_url": url}
