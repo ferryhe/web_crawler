@@ -1,22 +1,40 @@
-# Web Crawler Research & Improvement Reports
+# Web Crawler Research
 
-本仓库为针对两个 AI 爬虫工具的研究学习报告，以及对 [marathon_calendar](https://github.com/ferryhe/marathon_calendar) 和 AI_actuarial_inforsearch 两个项目的爬虫改进建议，同时包含 QMD 混合检索引擎对问题检索能力的增强分析。
+本仓库用于对 GitHub 项目进行深度技术研究，产出可复用的分析报告。研究方向包括：AI 爬虫工具、混合检索引擎、项目架构改进等。
 
-## 文档目录
+## 目录结构
 
-| 文档 | 说明 |
-|------|------|
-| [research_report.md](./research_report.md) | 学习报告：ScrapeGraphAI 与 AI 爬虫工具的深度研究与选型建议 |
-| [improvement_report.md](./improvement_report.md) | 改进报告：两个项目的爬虫功能具体改进方案与示例代码 |
-| [qmd_search_report.md](./qmd_search_report.md) | 检索增强报告：QMD 混合搜索引擎对 AI_actuarial_inforsearch 问题检索的改进分析 |
+```
+web_crawler/
+├── reports/          # 所有研究报告（按日期命名：YYYYMMDD-主题.md）
+├── templates/        # 报告模板
+│   └── research_report_template.md
+├── skills/           # 研究技能定义
+│   └── github_project_research.md
+└── .github/
+    └── copilot-instructions.md  # Copilot 研究助手指令
+```
 
-## 研究对象
+## 如何产出研究报告
 
-1. **[ScrapeGraphAI](https://github.com/ScrapeGraphAI/Scrapegraph-ai)** — 基于 LLM + 图逻辑的 Python 爬虫库，支持 OpenAI、Groq、Ollama 等多种模型
-2. **[Shubhamsaboo / web_scrapping_ai_agent](https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/starter_ai_agents/web_scrapping_ai_agent)** — 基于 ScrapeGraphAI + Streamlit 的 AI 爬虫 UI 原型
-3. **[QMD](https://github.com/tobi/qmd)** — 本地端混合搜索引擎，结合 BM25、向量语义搜索和 LLM 重排序，专为知识库问答检索设计
+1. **使用 Copilot Coding Agent**：在 Issue 或 PR 中描述研究目标（例如"对 [仓库 URL] 进行深度分析"），Agent 将自动按照 `skills/github_project_research.md` 中的工作流执行研究并输出报告。
 
-## 目标项目
+2. **手动撰写**：复制 `templates/research_report_template.md`，填写各节内容，保存至 `reports/YYYYMMDD-[主题].md`。
 
-- **marathon_calendar**（TypeScript / Node.js）— 马拉松赛事日历，爬虫框架已就绪，需补全数据源实现
-- **AI_actuarial_inforsearch**（Python）— 精算信息搜索平台，需引入 AI 爬虫能力与混合检索增强
+## 研究报告列表
+
+| 日期 | 报告 | 研究主题 |
+|------|------|---------|
+| 2026-02-19 | [AI 爬虫工具研究与选型建议](./reports/20260219-AI爬虫工具研究与选型建议.md) | ScrapeGraphAI、AI 爬虫工具对比与选型 |
+| 2026-02-19 | [两个项目爬虫功能改进方案](./reports/20260219-两个项目爬虫功能改进方案.md) | marathon_calendar & AI_actuarial_inforsearch 改进建议 |
+| 2026-02-25 | [AI_actuarial_inforsearch 检索能力改进分析](./reports/20260225-AI_actuarial_inforsearch检索能力改进分析.md) | QMD 混合搜索引擎集成分析 |
+
+## 已研究的项目
+
+| 项目 | 语言 | 研究方向 |
+|------|------|---------|
+| [ScrapeGraphAI](https://github.com/ScrapeGraphAI/Scrapegraph-ai) | Python | LLM 驱动的爬虫库，架构与选型分析 |
+| [web_scrapping_ai_agent](https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/starter_ai_agents/web_scrapping_ai_agent) | Python | ScrapeGraphAI UI 原型，价值评估 |
+| [QMD](https://github.com/tobi/qmd) | TypeScript | 本地混合检索引擎，BM25 + 向量 + 重排序 |
+| [marathon_calendar](https://github.com/ferryhe/marathon_calendar) | TypeScript | 马拉松赛事爬虫框架改进 |
+| AI_actuarial_inforsearch | Python | 精算信息搜索平台，AI 爬虫与检索增强 |
